@@ -15,45 +15,45 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.thorstiland.spielplan.model.Season;
-import com.thorstiland.spielplan.service.SeasonService;
+import com.thorstiland.spielplan.model.Game;
+import com.thorstiland.spielplan.service.GameService;
 
 import io.swagger.annotations.Api;
 
-@Api(tags = { "masterdata", "Season" })
+@Api(tags = { "masterdata", "Game" })
 @Named
 @Stateless
-@Path("season")
-public class SeasonEndpoint {
+@Path("Game")
+public class GameEndpoint {
 	@Inject
-	SeasonService seasonService;
+	GameService GameService;
 	
 	@GET
     @Produces({ MediaType.APPLICATION_JSON })
     @Path("/{id}")
-    public Season get(@PathParam("id") UUID id) {
-        return seasonService.find(id);
+    public Game get(@PathParam("id") UUID id) {
+        return GameService.find(id);
     }
 	
 	@POST
     @Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-    public Season post(Season season) {
-        return seasonService.save(season);
+    public Game post(Game Game) {
+        return GameService.save(Game);
     }
 	
 	@PUT
 	@Path("/{id}")
     @Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-    public Season put(@PathParam("id") UUID id,Season season) {
-		season.setId(id);
-        return seasonService.merge(season);
+    public Game put(@PathParam("id") UUID id,Game Game) {
+		Game.setId(id);
+        return GameService.merge(Game);
     }
 	
 	@DELETE
 	@Path("/{id}")
     public void delete(@PathParam("id") UUID id) {
-         seasonService.delete(id);
+         GameService.delete(id);
     }
 }
