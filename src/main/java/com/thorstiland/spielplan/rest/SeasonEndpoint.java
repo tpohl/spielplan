@@ -30,6 +30,12 @@ public class SeasonEndpoint {
 	SeasonService seasonService;
 	
 	@GET
+    @Produces({ MediaType.APPLICATION_JSON }) 
+    public List<Season> getAll() {
+        return seasonService.findAll();
+    }
+	
+	@GET
     @Produces({ MediaType.APPLICATION_JSON })
     @Path("/{id}")
     public Season get(@PathParam("id") long id) {

@@ -1,5 +1,7 @@
 package com.thorstiland.spielplan.rest;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -25,6 +27,12 @@ import io.swagger.annotations.Api;
 public class TeamEndpoint {
 	@Inject
 	TeamService teamService;
+	
+	@GET
+    @Produces({ MediaType.APPLICATION_JSON }) 
+    public List<Team> getAll() {
+        return teamService.findAll();
+    }
 	
 	@GET
     @Produces({ MediaType.APPLICATION_JSON })

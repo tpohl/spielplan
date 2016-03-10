@@ -1,5 +1,7 @@
 package com.thorstiland.spielplan.rest;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -22,10 +24,16 @@ import io.swagger.annotations.Api;
 @Api(tags = { "masterdata", "Game" })
 @Named
 @Stateless
-@Path("Game")
+@Path("game")
 public class GameEndpoint {
 	@Inject
 	GameService gameService;
+	
+	@GET
+    @Produces({ MediaType.APPLICATION_JSON }) 
+    public List<Game> getAll() {
+        return gameService.findAll();
+    }
 	
 	@GET
     @Produces({ MediaType.APPLICATION_JSON })
