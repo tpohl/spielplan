@@ -11,6 +11,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 public class Season {
@@ -21,6 +22,8 @@ public class Season {
 	@ManyToMany(targetEntity = Team.class, fetch=FetchType.EAGER)
     @JoinTable(name="season2team")
 	private List<Team> teams;
+	
+	@JsonIgnore
 	@JsonManagedReference("Season.games")
 	@OneToMany(mappedBy = "season", cascade=CascadeType.REMOVE)
 	private List<Game> games;
