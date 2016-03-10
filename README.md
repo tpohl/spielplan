@@ -1,3 +1,3 @@
-The OpenShift `jbossas` cartridge documentation can be found at:
+#Backend for the "Spielplan" Project:
 
-https://github.com/openshift/origin-server/tree/master/cartridges/openshift-origin-cartridge-jbossas/README.md
+API can be found [here](https://spielplan-pohl.rhcloud.com/api/).
