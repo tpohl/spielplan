@@ -11,6 +11,9 @@ public class Game {
 	@Id
 	private UUID id;
 	
+	private int scoreHome;
+	private int scoreAway;
+	
 	@com.fasterxml.jackson.annotation.JsonBackReference("Season.games")
     @ManyToOne
     private Season season;
@@ -51,6 +54,22 @@ public class Game {
 
 	public void setAwayTeam(Team awayTeam) {
 		this.awayTeam = awayTeam;
+	}
+
+	public int getScoreHome() {
+		return scoreHome;
+	}
+
+	public void setScoreHome(int scoreHome) {
+		this.scoreHome = scoreHome;
+	}
+
+	public int getScoreAway() {
+		return scoreAway;
+	}
+
+	public void setScoreAway(int scoreAway) {
+		this.scoreAway = scoreAway;
 	}
 	
 	

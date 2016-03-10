@@ -26,20 +26,20 @@ import io.swagger.annotations.Api;
 @Path("team")
 public class TeamEndpoint {
 	@Inject
-	TeamService TeamService;
+	TeamService teamService;
 	
 	@GET
     @Produces({ MediaType.APPLICATION_JSON })
     @Path("/{id}")
     public Team get(@PathParam("id") UUID id) {
-        return TeamService.find(id);
+        return teamService.find(id);
     }
 	
 	@POST
     @Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
     public Team post(Team Team) {
-        return TeamService.save(Team);
+        return teamService.save(Team);
     }
 	
 	@PUT
@@ -48,12 +48,13 @@ public class TeamEndpoint {
 	@Produces({ MediaType.APPLICATION_JSON })
     public Team put(@PathParam("id") UUID id,Team Team) {
 		Team.setId(id);
-        return TeamService.merge(Team);
+        return teamService.merge(Team);
     }
 	
 	@DELETE
 	@Path("/{id}")
     public void delete(@PathParam("id") UUID id) {
-         TeamService.delete(id);
+         teamService.delete(id);
     }
+	
 }
