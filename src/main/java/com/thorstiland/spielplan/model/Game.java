@@ -3,13 +3,13 @@ package com.thorstiland.spielplan.model;
 import java.util.UUID;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class Game {
-	@Id
-	private UUID id;
+	@Id @GeneratedValue long id;
 	
 	private int scoreHome;
 	private int scoreAway;
@@ -24,11 +24,11 @@ public class Game {
 	@ManyToOne
     private Team awayTeam;
 
-	public UUID getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

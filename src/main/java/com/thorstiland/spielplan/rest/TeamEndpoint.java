@@ -1,7 +1,5 @@
 package com.thorstiland.spielplan.rest;
 
-import java.util.UUID;
-
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -31,7 +29,7 @@ public class TeamEndpoint {
 	@GET
     @Produces({ MediaType.APPLICATION_JSON })
     @Path("/{id}")
-    public Team get(@PathParam("id") UUID id) {
+    public Team get(@PathParam("id") long id) {
         return teamService.find(id);
     }
 	
@@ -46,14 +44,14 @@ public class TeamEndpoint {
 	@Path("/{id}")
     @Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-    public Team put(@PathParam("id") UUID id,Team Team) {
+    public Team put(@PathParam("id") long id,Team Team) {
 		Team.setId(id);
         return teamService.merge(Team);
     }
 	
 	@DELETE
 	@Path("/{id}")
-    public void delete(@PathParam("id") UUID id) {
+    public void delete(@PathParam("id") long id) {
          teamService.delete(id);
     }
 	

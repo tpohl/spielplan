@@ -31,7 +31,7 @@ public class SeasonEndpoint {
 	@GET
     @Produces({ MediaType.APPLICATION_JSON })
     @Path("/{id}")
-    public Season get(@PathParam("id") UUID id) {
+    public Season get(@PathParam("id") long id) {
         return seasonService.find(id);
     }
 	
@@ -46,14 +46,14 @@ public class SeasonEndpoint {
 	@Path("/{id}")
     @Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-    public Season put(@PathParam("id") UUID id,Season season) {
+    public Season put(@PathParam("id") long id,Season season) {
 		season.setId(id);
         return seasonService.merge(season);
     }
 	
 	@DELETE
 	@Path("/{id}")
-    public void delete(@PathParam("id") UUID id) {
+    public void delete(@PathParam("id") long id) {
          seasonService.delete(id);
     }
 }

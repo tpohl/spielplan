@@ -1,10 +1,10 @@
 package com.thorstiland.spielplan.model;
 
 import java.util.List;
-import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -13,8 +13,7 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 public class Season {
-	@Id
-	private UUID id;
+	@Id @GeneratedValue long id;
 	
 	private String name;
 	
@@ -24,10 +23,10 @@ public class Season {
 	@JsonManagedReference("Season.games")
 	@OneToMany(mappedBy = "season", cascade=CascadeType.REMOVE)
 	private List<Game> games;
-	public UUID getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(UUID id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getName() {

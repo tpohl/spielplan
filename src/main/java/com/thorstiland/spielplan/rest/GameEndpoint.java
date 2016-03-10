@@ -1,7 +1,5 @@
 package com.thorstiland.spielplan.rest;
 
-import java.util.UUID;
-
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -32,7 +30,7 @@ public class GameEndpoint {
 	@GET
     @Produces({ MediaType.APPLICATION_JSON })
     @Path("/{id}")
-    public Game get(@PathParam("id") UUID id) {
+    public Game get(@PathParam("id") long id) {
         return gameService.find(id);
     }
 	
@@ -47,20 +45,20 @@ public class GameEndpoint {
 	@Path("/{id}")
     @Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-    public Game put(@PathParam("id") UUID id,Game Game) {
+    public Game put(@PathParam("id") long id,Game Game) {
 		Game.setId(id);
         return gameService.merge(Game);
     }
 	
 	@DELETE
 	@Path("/{id}")
-    public void delete(@PathParam("id") UUID id) {
+    public void delete(@PathParam("id") long id) {
          gameService.delete(id);
     }
 	
 	@POST
 	@Path("/score/{id}")
-	public void saveScore(@PathParam("id") UUID id, @QueryParam("home") int homeScore, @QueryParam("away") int awayScore){
+	public void saveScore(@PathParam("id") long id, @QueryParam("home") int homeScore, @QueryParam("away") int awayScore){
 		Game game = gameService.find(id);
 		game.setScoreHome(homeScore);
 		game.setScoreAway(awayScore);
