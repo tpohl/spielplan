@@ -4,7 +4,6 @@ import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module;
 
 import io.swagger.jaxrs.config.BeanConfig;
 
@@ -26,8 +25,7 @@ public class REST extends Application {
 		beanConfig.setScan(true);
 
 		ObjectMapper mapper = new ObjectMapper();
-		// for Hibernate 4.x:
-		mapper.registerModule(new Hibernate4Module());
+		mapper.registerModule(new Hibernate5Module());
 	}
 
 }
