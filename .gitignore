@@ -1,0 +1,12 @@
+**/target
+**/.project
+**/.settings
+**/.classpath
+**/.tern-project
+**/node_modules
+**/dist
+**/.tmp
+**/.sass-cache
+**/bower_components
+**/yo/app/scripts/app.constants.js
+.gitconfig
