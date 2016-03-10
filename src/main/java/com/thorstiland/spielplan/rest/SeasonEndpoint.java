@@ -1,6 +1,6 @@
 package com.thorstiland.spielplan.rest;
 
-import java.util.UUID;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -15,6 +15,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.thorstiland.spielplan.model.Game;
 import com.thorstiland.spielplan.model.Season;
 import com.thorstiland.spielplan.service.SeasonService;
 
@@ -33,6 +34,13 @@ public class SeasonEndpoint {
     @Path("/{id}")
     public Season get(@PathParam("id") long id) {
         return seasonService.find(id);
+    }
+	
+	@GET
+    @Produces({ MediaType.APPLICATION_JSON })
+    @Path("/{id}/games")
+    public List<Game> getGames(@PathParam("id") long id) {
+        return seasonService.find(id).getGames();
     }
 	
 	@POST
