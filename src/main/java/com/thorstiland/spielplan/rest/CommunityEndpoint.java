@@ -13,12 +13,15 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.thorstiland.spielplan.model.Community;
+import com.thorstiland.spielplan.model.Season;
 import com.thorstiland.spielplan.model.jsonview.Views;
 import com.thorstiland.spielplan.service.CommunityService;
+import com.thorstiland.spielplan.service.SeasonService;
 
 import io.swagger.annotations.Api;
 
@@ -30,6 +33,9 @@ public class CommunityEndpoint {
 	@Inject
 	CommunityService communityService;
 
+	@Inject
+	SeasonService seasonService;
+	
 	@JsonView(Views.Basic.class)
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -66,5 +72,18 @@ public class CommunityEndpoint {
 	@Path("/{id}")
 	public void delete(@PathParam("id") long id) {
 		communityService.delete(id);
+	}
+	
+	@POST
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Path("/{id}/createSeason")
+	public Season createSeasonForCommunity(@PathParam("id") long communityId,
+			@QueryParam("seasonName") String seasonName) {
+		Community c = communityService.find(communityId);
+		if (c != null) {
+			return seasonService.createSeasonForCommunity(seasonName, c);
+		} else {
+			return null;
+		}
 	}
 }
