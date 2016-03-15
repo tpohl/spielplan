@@ -27,7 +27,7 @@ public class Community {
 
 	@JsonView(Hierarchy.class)
 	@JsonManagedReference("Community.seasons")
-	@OneToMany(mappedBy = "season", cascade=CascadeType.REMOVE)
+	@OneToMany(mappedBy = "community", cascade=CascadeType.REMOVE)
 	private List<Season> seasons;
 	
 	public long getId() {
