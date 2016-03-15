@@ -46,8 +46,7 @@ public abstract class CrudService<T> {
      * @return newly created entity.
      */
     public T save(T entity) {
-        entityManager.persist(entity);
-        return entity;
+        return entityManager.merge(entity);
     }
 
     /**
