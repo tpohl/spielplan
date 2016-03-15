@@ -35,6 +35,7 @@ public class SeasonService extends CrudService<Season>{
 					game.setHomeTeam(homeTeam);
 					game.setAwayTeam(awayTeam);
 					game.setSeason(season);
+					this.entityManager.persist(game);
 				}
 			}
 		}
