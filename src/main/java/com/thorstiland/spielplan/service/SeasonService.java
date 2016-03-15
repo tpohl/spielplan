@@ -1,7 +1,5 @@
 package com.thorstiland.spielplan.service;
 
-import java.util.ArrayList;
-
 import javax.inject.Named;
 
 import com.thorstiland.spielplan.model.Community;
@@ -18,8 +16,8 @@ public class SeasonService extends CrudService<Season>{
 
 	public Season createSeasonForCommunity(String name, Community community){
 		Season s = new Season();
-		
-		s.setTeams(new ArrayList<>(community.getTeams()));
+		s = this.save(s);
+		s.getTeams().addAll(community.getTeams());
 		s.setName(name);
 		s.setCommunity(community);
 		s = this.save(s);
