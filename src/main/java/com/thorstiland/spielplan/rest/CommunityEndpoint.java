@@ -15,7 +15,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.thorstiland.spielplan.model.Community;
+import com.thorstiland.spielplan.model.jsonview.Views;
 import com.thorstiland.spielplan.service.CommunityService;
 
 import io.swagger.annotations.Api;
@@ -27,41 +29,42 @@ import io.swagger.annotations.Api;
 public class CommunityEndpoint {
 	@Inject
 	CommunityService communityService;
-	
+
+	@JsonView(Views.Basic.class)
 	@GET
-    @Produces({ MediaType.APPLICATION_JSON }) 
-    public List<Community> getAll() {
-        return communityService.findAll();
-    }
-	
-	@GET
-    @Produces({ MediaType.APPLICATION_JSON })
-    @Path("/{id}")
-    public Community get(@PathParam("id") long id) {
-        return communityService.find(id);
-    }
-	
-	
-	
-	@POST
-    @Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-    public Community post(Community community) {
-        return communityService.save(community);
-    }
-	
+	public List<Community> getAll() {
+		return communityService.findAll();
+	}
+
+	@JsonView(Views.Basic.class)
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Path("/{id}")
+	public Community get(@PathParam("id") long id) {
+		return communityService.find(id);
+	}
+
+	@POST
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Community post(Community community) {
+		return communityService.save(community);
+	}
+
+	@JsonView(Views.Basic.class)
 	@PUT
 	@Path("/{id}")
-    @Consumes({ MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-    public Community put(@PathParam("id") long id,Community community) {
+	public Community put(@PathParam("id") long id, Community community) {
 		community.setId(id);
-        return communityService.merge(community);
-    }
-	
+		return communityService.merge(community);
+	}
+
 	@DELETE
 	@Path("/{id}")
-    public void delete(@PathParam("id") long id) {
-         communityService.delete(id);
-    }
+	public void delete(@PathParam("id") long id) {
+		communityService.delete(id);
+	}
 }
