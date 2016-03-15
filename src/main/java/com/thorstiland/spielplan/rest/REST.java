@@ -20,7 +20,7 @@ public class REST extends Application {
 
 		BeanConfig beanConfig = new BeanConfig();
 		beanConfig.setVersion("0.0.1");
-		beanConfig.setSchemes(new String[] { "http", "https" });
+		beanConfig.setSchemes(new String[] { "https" });
 		beanConfig.setBasePath("/rest");
 		beanConfig.setResourcePackage("com.thorstiland.spielplan.rest");
 		beanConfig.setScan(true);
