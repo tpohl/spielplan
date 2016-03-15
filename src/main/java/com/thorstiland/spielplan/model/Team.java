@@ -6,9 +6,21 @@ import javax.persistence.Id;
 
 @Entity
 public class Team {
-	@Id @GeneratedValue long id;
-	
+	@Id
+	@GeneratedValue
+	long id;
+
 	private String name;
+
+	private String playerName;
+
+	public String getPlayerName() {
+		return playerName;
+	}
+
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
 
 	public String getName() {
 		return name;
@@ -25,6 +37,10 @@ public class Team {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Team [id=" + id + ", name=" + name + "]";
+	}
+
 }
