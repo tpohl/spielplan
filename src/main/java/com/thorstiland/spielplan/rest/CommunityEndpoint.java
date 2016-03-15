@@ -19,6 +19,7 @@ import javax.ws.rs.core.MediaType;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.thorstiland.spielplan.model.Community;
 import com.thorstiland.spielplan.model.Season;
+import com.thorstiland.spielplan.model.Team;
 import com.thorstiland.spielplan.model.jsonview.Views;
 import com.thorstiland.spielplan.service.CommunityService;
 import com.thorstiland.spielplan.service.SeasonService;
@@ -49,6 +50,16 @@ public class CommunityEndpoint {
 	@Path("/{id}")
 	public Community get(@PathParam("id") long id) {
 		return communityService.find(id);
+	}
+	
+	@JsonView(Views.Basic.class)
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Path("/{id}/teams")
+	public List<Team> getTeams(@PathParam("id") long id) {
+		List<Team> teams =  communityService.find(id).getTeams();
+		teams.size();
+		return teams;
 	}
 
 	@POST
