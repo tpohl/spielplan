@@ -16,6 +16,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.annotation.JsonView;
 import com.thorstiland.spielplan.model.Community;
 import com.thorstiland.spielplan.model.Season;
@@ -31,6 +34,8 @@ import io.swagger.annotations.Api;
 @Stateless
 @Path("community")
 public class CommunityEndpoint {
+	
+	private static final Logger LOG = LoggerFactory.getLogger(CommunityEndpoint.class);
 	@Inject
 	CommunityService communityService;
 
@@ -66,6 +71,7 @@ public class CommunityEndpoint {
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Community post(Community community) {
+		LOG.info("Creating Community {}", community);
 		return communityService.save(community);
 	}
 

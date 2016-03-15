@@ -15,6 +15,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.annotation.JsonView;
 import com.thorstiland.spielplan.model.Game;
 import com.thorstiland.spielplan.model.Season;
@@ -28,6 +31,8 @@ import io.swagger.annotations.Api;
 @Stateless
 @Path("season")
 public class SeasonEndpoint {
+	
+	private static final Logger LOG = LoggerFactory.getLogger(SeasonEndpoint.class);
 	@Inject
 	SeasonService seasonService;
 
@@ -65,6 +70,7 @@ public class SeasonEndpoint {
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Season post(Season season) {
+		LOG.info("Creating Season {}", season);
 		return seasonService.save(season);
 	}
 

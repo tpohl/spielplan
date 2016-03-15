@@ -61,6 +61,11 @@ public class Community {
 	public void setSeasons(List<Season> seasons) {
 		this.seasons = seasons;
 	}
+
+	@Override
+	public String toString() {
+		return "Community [id=" + id + ", name=" + name + ", teams=" + teams + ", seasons=" + seasons + "]";
+	}
 	
 	
 }

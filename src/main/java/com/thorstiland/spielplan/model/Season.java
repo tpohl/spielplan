@@ -63,6 +63,11 @@ public class Season {
 	public void setCommunity(Community community) {
 		this.community = community;
 	}
+	@Override
+	public String toString() {
+		return "Season [id=" + id + ", name=" + name +  ", teams=" + teams + ", games="
+				+ games + "]";
+	}
 	
 	
 }
