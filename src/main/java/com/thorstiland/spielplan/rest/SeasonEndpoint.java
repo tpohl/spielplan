@@ -13,10 +13,13 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.thorstiland.spielplan.model.Community;
 import com.thorstiland.spielplan.model.Game;
 import com.thorstiland.spielplan.model.Season;
+import com.thorstiland.spielplan.service.CommunityService;
 import com.thorstiland.spielplan.service.SeasonService;
 
 import io.swagger.annotations.Api;
@@ -28,46 +31,61 @@ import io.swagger.annotations.Api;
 public class SeasonEndpoint {
 	@Inject
 	SeasonService seasonService;
-	
+
+	@Inject
+	CommunityService communityService;
+
 	@GET
-    @Produces({ MediaType.APPLICATION_JSON }) 
-    public List<Season> getAll() {
-        return seasonService.findAll();
-    }
-	
-	@GET
-    @Produces({ MediaType.APPLICATION_JSON })
-    @Path("/{id}")
-    public Season get(@PathParam("id") long id) {
-        return seasonService.find(id);
-    }
-	
-	@GET
-    @Produces({ MediaType.APPLICATION_JSON })
-    @Path("/{id}/games")
-    public List<Game> getGames(@PathParam("id") long id) {
-        return seasonService.find(id).getGames();
-    }
-	
-	@POST
-    @Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-    public Season post(Season season) {
-        return seasonService.save(season);
-    }
-	
+	public List<Season> getAll() {
+		return seasonService.findAll();
+	}
+
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Path("/{id}")
+	public Season get(@PathParam("id") long id) {
+		return seasonService.find(id);
+	}
+
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Path("/{id}/games")
+	public List<Game> getGames(@PathParam("id") long id) {
+		return seasonService.find(id).getGames();
+	}
+
+	@POST
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Season createSeasonForCommunity(@QueryParam("communityId") long communityId,
+			@QueryParam("seasonName") String seasonName) {
+		Community c = communityService.find(communityId);
+		if (c != null) {
+			return seasonService.createSeasonForCommunity(seasonName, c);
+		} else {
+			return null;
+		}
+	}
+
+	@POST
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Season post(Season season) {
+		return seasonService.save(season);
+	}
+
 	@PUT
 	@Path("/{id}")
-    @Consumes({ MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-    public Season put(@PathParam("id") long id,Season season) {
+	public Season put(@PathParam("id") long id, Season season) {
 		season.setId(id);
-        return seasonService.merge(season);
-    }
-	
+		return seasonService.merge(season);
+	}
+
 	@DELETE
 	@Path("/{id}")
-    public void delete(@PathParam("id") long id) {
-         seasonService.delete(id);
-    }
+	public void delete(@PathParam("id") long id) {
+		seasonService.delete(id);
+	}
 }
