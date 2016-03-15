@@ -1,6 +1,7 @@
 package com.thorstiland.spielplan.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -16,10 +17,10 @@ public class Game {
     @ManyToOne
     private Season season;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
     private Team homeTeam;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
     private Team awayTeam;
 
 	public long getId() {

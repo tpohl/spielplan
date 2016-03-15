@@ -46,7 +46,16 @@ public class SeasonEndpoint {
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/{id}/games")
 	public List<Game> getGames(@PathParam("id") long id) {
-		return seasonService.find(id).getGames();
+		final Season season = seasonService.find(id);
+		if (season != null) {
+			List<Game> games = season.getGames();
+			games.size();
+			return games;
+
+		} else {
+			return null;
+		}
+
 	}
 
 	@POST
