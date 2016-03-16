@@ -75,6 +75,16 @@ public class CommunityEndpoint {
 		return communityService.save(community);
 	}
 
+	@POST
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Path("/{id}/addTeam")
+	public Community addTeam(@PathParam("id") long id,Team team) {
+		Community c = communityService.find(id);
+		LOG.info("Adding Team {} to  Community {}", team, c);		
+		return communityService.addTeam(c, team);
+	}
+	
 	@JsonView(Views.Basic.class)
 	@PUT
 	@Path("/{id}")
