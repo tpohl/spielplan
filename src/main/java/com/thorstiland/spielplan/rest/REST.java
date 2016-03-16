@@ -3,9 +3,6 @@ package com.thorstiland.spielplan.rest;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
-
 import io.swagger.jaxrs.config.BeanConfig;
 
 /**
@@ -25,8 +22,7 @@ public class REST extends Application {
 		beanConfig.setResourcePackage("com.thorstiland.spielplan.rest");
 		beanConfig.setScan(true);
 
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(new Hibernate5Module());
+		
 	}
 
 }

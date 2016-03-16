@@ -10,8 +10,8 @@ import javax.persistence.ManyToOne;
 public class Game {
 	@Id @GeneratedValue long id;
 	
-	private int scoreHome;
-	private int scoreAway;
+	private Integer scoreHome;
+	private Integer scoreAway;
 	
 	@com.fasterxml.jackson.annotation.JsonBackReference("Season.games")
     @ManyToOne
@@ -55,19 +55,19 @@ public class Game {
 		this.awayTeam = awayTeam;
 	}
 
-	public int getScoreHome() {
+	public Integer getScoreHome() {
 		return scoreHome;
 	}
 
-	public void setScoreHome(int scoreHome) {
+	public void setScoreHome(Integer scoreHome) {
 		this.scoreHome = scoreHome;
 	}
 
-	public int getScoreAway() {
+	public Integer getScoreAway() {
 		return scoreAway;
 	}
 
-	public void setScoreAway(int scoreAway) {
+	public void setScoreAway(Integer scoreAway) {
 		this.scoreAway = scoreAway;
 	}
 
