@@ -66,6 +66,16 @@ public class CommunityEndpoint {
 		teams.size();
 		return teams;
 	}
+	
+	@JsonView(Views.Basic.class)
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Path("/{id}/seasons")
+	public List<Season> getSeasons(@PathParam("id") long id) {
+		List<Season> seasons =  communityService.find(id).getSeasons();
+		seasons.size();
+		return seasons;
+	}
 
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })
