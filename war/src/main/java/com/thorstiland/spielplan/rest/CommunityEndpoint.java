@@ -32,14 +32,14 @@ import io.swagger.annotations.Api;
 @Stateless
 @Path("community")
 public class CommunityEndpoint {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(CommunityEndpoint.class);
 	@Inject
 	CommunityService communityService;
 
 	@Inject
 	SeasonService seasonService;
-	
+
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Community> getAll() {
@@ -52,21 +52,21 @@ public class CommunityEndpoint {
 	public Community get(@PathParam("id") long id) {
 		return communityService.find(id);
 	}
-	
+
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/{id}/team")
 	public List<Team> getTeams(@PathParam("id") long id) {
-		List<Team> teams =  communityService.find(id).getTeams();
+		List<Team> teams = communityService.find(id).getTeams();
 		teams.size();
 		return teams;
 	}
-	
+
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/{id}/season")
 	public List<Season> getSeasons(@PathParam("id") long id) {
-		List<Season> seasons =  communityService.find(id).getSeasons();
+		List<Season> seasons = communityService.find(id).getSeasons();
 		seasons.size();
 		return seasons;
 	}
@@ -82,13 +82,13 @@ public class CommunityEndpoint {
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	@Path("/{id}/team")
-	public Community addTeam(@PathParam("id") long id,Team team) {
+	@Path("/{id}/addTeam")
+	public Community addTeam(@PathParam("id") long id, Team team) {
 		Community c = communityService.find(id);
-		LOG.info("Adding Team {} to  Community {}", team, c);		
+		LOG.info("Adding Team {} to  Community {}", team, c);
 		return communityService.addTeam(c, team);
 	}
-	
+
 	@PUT
 	@Path("/{id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
@@ -103,7 +103,7 @@ public class CommunityEndpoint {
 	public void delete(@PathParam("id") long id) {
 		communityService.delete(id);
 	}
-	
+
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/{id}/season")
