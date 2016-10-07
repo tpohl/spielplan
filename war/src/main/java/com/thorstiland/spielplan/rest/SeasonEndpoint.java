@@ -18,10 +18,12 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.annotation.JsonView;
+import com.thorstiland.spielplan.dto.GameDto;
+import com.thorstiland.spielplan.dto.SeasonDto;
+import com.thorstiland.spielplan.mapper.GameMapper;
+import com.thorstiland.spielplan.mapper.SeasonMapper;
 import com.thorstiland.spielplan.model.Game;
 import com.thorstiland.spielplan.model.Season;
-import com.thorstiland.spielplan.model.jsonview.Views;
 import com.thorstiland.spielplan.service.SeasonService;
 
 import io.swagger.annotations.Api;
@@ -36,29 +38,32 @@ public class SeasonEndpoint {
 	@Inject
 	SeasonService seasonService;
 
+	@Inject
+	SeasonMapper seasonMapper;
+	@Inject
+	GameMapper gameMapper;
+	
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Season> getAll() {
-		return seasonService.findAll();
+	public List<SeasonDto> getAll() {
+		return seasonMapper.toDtos(seasonService.findAll());
 	}
 
-	@JsonView(Views.Basic.class)
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/{id}")
-	public Season get(@PathParam("id") long id) {
-		return seasonService.find(id);
+	public SeasonDto get(@PathParam("id") long id) {
+		return seasonMapper.toDto(seasonService.find(id));
 	}
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/{id}/games")
-	public List<Game> getGames(@PathParam("id") long id) {
+	public List<GameDto> getGames(@PathParam("id") long id) {
 		final Season season = seasonService.find(id);
 		if (season != null) {
 			List<Game> games = season.getGames();
-			games.size();
-			return games;
+			return gameMapper.toGameDtos(games);
 
 		} else {
 			return null;

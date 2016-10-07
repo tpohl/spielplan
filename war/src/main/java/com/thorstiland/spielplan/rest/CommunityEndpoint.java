@@ -19,11 +19,9 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.thorstiland.spielplan.model.Community;
 import com.thorstiland.spielplan.model.Season;
 import com.thorstiland.spielplan.model.Team;
-import com.thorstiland.spielplan.model.jsonview.Views;
 import com.thorstiland.spielplan.service.CommunityService;
 import com.thorstiland.spielplan.service.SeasonService;
 
@@ -42,14 +40,12 @@ public class CommunityEndpoint {
 	@Inject
 	SeasonService seasonService;
 	
-	@JsonView(Views.Basic.class)
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public List<Community> getAll() {
 		return communityService.findAll();
 	}
 
-	@JsonView(Views.Basic.class)
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/{id}")
@@ -57,7 +53,6 @@ public class CommunityEndpoint {
 		return communityService.find(id);
 	}
 	
-	@JsonView(Views.Basic.class)
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/{id}/teams")
@@ -67,7 +62,6 @@ public class CommunityEndpoint {
 		return teams;
 	}
 	
-	@JsonView(Views.Basic.class)
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/{id}/seasons")
@@ -95,7 +89,6 @@ public class CommunityEndpoint {
 		return communityService.addTeam(c, team);
 	}
 	
-	@JsonView(Views.Basic.class)
 	@PUT
 	@Path("/{id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
