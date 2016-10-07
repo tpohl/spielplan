@@ -96,6 +96,9 @@
 	</dependencies>
 </dependencyManagement>
 
+	<build>
+		<defaultGoal>clean package</defaultGoal>
+	</build>
 	<profiles>
 		<profile>
 			<!-- When built in OpenShift the 'openshift' profile will be used when 
@@ -107,8 +110,7 @@
 			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
 			<id>openshift</id>
 			<build>
-				<finalName>spielplan</finalName>
-				
+				<finalName>spielplan</finalName>		
 			</build>
 		</profile>
 	</profiles>
