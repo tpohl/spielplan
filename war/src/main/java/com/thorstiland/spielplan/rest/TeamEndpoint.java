@@ -15,6 +15,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.thorstiland.spielplan.dto.TeamDto;
+import com.thorstiland.spielplan.mapper.TeamMapper;
 import com.thorstiland.spielplan.model.Team;
 import com.thorstiland.spielplan.service.TeamService;
 
@@ -27,18 +29,19 @@ import io.swagger.annotations.Api;
 public class TeamEndpoint {
 	@Inject
 	TeamService teamService;
+	@Inject TeamMapper teamMapper;
 	
 	@GET
     @Produces({ MediaType.APPLICATION_JSON }) 
-    public List<Team> getAll() {
-        return teamService.findAll();
+    public List<TeamDto> getAll() {
+        return teamMapper.toTeamDtos(teamService.findAll());
     }
 	
 	@GET
     @Produces({ MediaType.APPLICATION_JSON })
     @Path("/{id}")
-    public Team get(@PathParam("id") long id) {
-        return teamService.find(id);
+    public TeamDto get(@PathParam("id") long id) {
+        return teamMapper.toTeam(teamService.find(id));
     }
 	
 	@POST

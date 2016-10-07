@@ -10,3 +10,5 @@
 **/bower_components
 **/yo/app/scripts/app.constants.js
 .gitconfig
+**/.DS_Store
+**/deployments
