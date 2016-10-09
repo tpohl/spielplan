@@ -55,7 +55,7 @@ public class CommunityEndpoint {
 	
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	@Path("/{id}/teams")
+	@Path("/{id}/team")
 	public List<Team> getTeams(@PathParam("id") long id) {
 		List<Team> teams =  communityService.find(id).getTeams();
 		teams.size();
@@ -64,7 +64,7 @@ public class CommunityEndpoint {
 	
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	@Path("/{id}/seasons")
+	@Path("/{id}/season")
 	public List<Season> getSeasons(@PathParam("id") long id) {
 		List<Season> seasons =  communityService.find(id).getSeasons();
 		seasons.size();
@@ -82,7 +82,7 @@ public class CommunityEndpoint {
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	@Path("/{id}/addTeam")
+	@Path("/{id}/team")
 	public Community addTeam(@PathParam("id") long id,Team team) {
 		Community c = communityService.find(id);
 		LOG.info("Adding Team {} to  Community {}", team, c);		
@@ -106,7 +106,7 @@ public class CommunityEndpoint {
 	
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON })
-	@Path("/{id}/createSeason")
+	@Path("/{id}/season")
 	public Season createSeasonForCommunity(@PathParam("id") long communityId,
 			@QueryParam("seasonName") String seasonName) {
 		Community c = communityService.find(communityId);

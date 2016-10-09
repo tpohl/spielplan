@@ -58,7 +58,7 @@ public class SeasonEndpoint {
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	@Path("/{id}/games")
+	@Path("/{id}/game")
 	public List<GameDto> getGames(@PathParam("id") long id) {
 		final Season season = seasonService.find(id);
 		if (season != null) {
