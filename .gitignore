@@ -12,3 +12,5 @@
 .gitconfig
 **/.DS_Store
 **/deployments
+**/*.iml
+.idea/
