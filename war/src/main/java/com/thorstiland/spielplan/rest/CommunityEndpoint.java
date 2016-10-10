@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.thorstiland.spielplan.dto.CommunityDto;
+import com.thorstiland.spielplan.dto.CommunityBasicDto;
 import com.thorstiland.spielplan.dto.SeasonDto;
 import com.thorstiland.spielplan.dto.TeamDto;
 import com.thorstiland.spielplan.mapper.CommunityMapper;
@@ -85,7 +86,7 @@ public class CommunityEndpoint {
 
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })
-	public CommunityDto post(CommunityDto communityDto) {
+	public CommunityDto post(CommunityBasicDto communityDto) {
 		LOG.info("Creating Community {}", communityDto);
 		Community community = communityMapper.toEntity(communityDto);
 		return communityMapper.toDto(communityService.save(community));
