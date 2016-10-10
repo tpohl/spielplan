@@ -9,5 +9,5 @@ public class SeasonDto {
 	private long id;
 	private String name;
 	private List<TeamDto> teams;
-	private List<GameDto> games;
+	private List<MatchDto> matches;
 }

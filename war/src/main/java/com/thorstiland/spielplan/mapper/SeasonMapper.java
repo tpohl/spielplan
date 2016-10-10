@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import com.thorstiland.spielplan.dto.SeasonDto;
 import com.thorstiland.spielplan.model.Season;
 
-@Mapper(uses = {TeamMapper.class, GameMapper.class})
+@Mapper(uses = {TeamMapper.class, MatchMapper.class})
 public interface SeasonMapper {
 	public SeasonDto toDto(Season season);
 

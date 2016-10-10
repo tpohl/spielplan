@@ -3,7 +3,7 @@ package com.thorstiland.spielplan.dto;
 import lombok.Data;
 
 @Data
-public class GameDto {
+public class MatchDto {
 	private long id;
 	private Integer scoreHome;
 	private Integer scoreAway;

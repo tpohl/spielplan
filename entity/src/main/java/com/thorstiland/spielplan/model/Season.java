@@ -31,6 +31,6 @@ public class Season {
 	private List<Team> teams;
 
 	@OneToMany(mappedBy = "season", cascade = CascadeType.REMOVE)
-	private List<Game> games;
+	private List<Match> matches;
 
 }

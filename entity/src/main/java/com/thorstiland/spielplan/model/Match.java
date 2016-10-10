@@ -14,7 +14,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Game {
+public class Match {
 	@Id
 	@GeneratedValue
 	long id;

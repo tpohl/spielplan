@@ -19,13 +19,13 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.thorstiland.spielplan.dto.GameDto;
+import com.thorstiland.spielplan.dto.MatchDto;
 import com.thorstiland.spielplan.dto.SeasonDto;
 import com.thorstiland.spielplan.dto.StandingsDto;
 import com.thorstiland.spielplan.dto.TeamDto;
-import com.thorstiland.spielplan.mapper.GameMapper;
+import com.thorstiland.spielplan.mapper.MatchMapper;
 import com.thorstiland.spielplan.mapper.SeasonMapper;
-import com.thorstiland.spielplan.model.Game;
+import com.thorstiland.spielplan.model.Match;
 import com.thorstiland.spielplan.model.Season;
 import com.thorstiland.spielplan.model.Team;
 import com.thorstiland.spielplan.service.SeasonService;
@@ -50,7 +50,7 @@ public class SeasonEndpoint {
 	@Inject
 	SeasonMapper seasonMapper;
 	@Inject
-	GameMapper gameMapper;
+	MatchMapper matchMapper;
 
 	@GET
 	public List<SeasonDto> getAll() {
@@ -64,12 +64,12 @@ public class SeasonEndpoint {
 	}
 
 	@GET
-	@Path("/{id}/game")
-	public List<GameDto> getGames(@PathParam("id") long id) {
+	@Path("/{id}/match")
+	public List<MatchDto> getMatches(@PathParam("id") long id) {
 		final Season season = seasonService.find(id);
 		if (season != null) {
-			List<Game> games = season.getGames();
-			return gameMapper.toGameDtos(games);
+			List<Match> mathes = season.getMatches();
+			return matchMapper.toDtos(mathes);
 
 		} else {
 			return null;

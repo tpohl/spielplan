@@ -118,7 +118,6 @@ public class CommunityEndpoint {
 
 	@POST
 	@Path("/{id}/season")
-	public Season createSeasonForCommunity(@PathParam("id") long communityId,
 	public SeasonDto createSeasonForCommunity(@PathParam("id") long communityId,
 			@QueryParam("seasonName") String seasonName) {
 		Community c = communityService.find(communityId);
