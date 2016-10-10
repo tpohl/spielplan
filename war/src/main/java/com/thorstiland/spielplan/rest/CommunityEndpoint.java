@@ -19,11 +19,18 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.thorstiland.spielplan.dto.CommunityDto;
+import com.thorstiland.spielplan.dto.SeasonDto;
+import com.thorstiland.spielplan.dto.TeamDto;
+import com.thorstiland.spielplan.mapper.CommunityMapper;
+import com.thorstiland.spielplan.mapper.SeasonMapper;
+import com.thorstiland.spielplan.mapper.TeamMapper;
 import com.thorstiland.spielplan.model.Community;
 import com.thorstiland.spielplan.model.Season;
 import com.thorstiland.spielplan.model.Team;
 import com.thorstiland.spielplan.service.CommunityService;
 import com.thorstiland.spielplan.service.SeasonService;
+import com.thorstiland.spielplan.service.TeamService;
 
 import io.swagger.annotations.Api;
 
@@ -31,68 +38,72 @@ import io.swagger.annotations.Api;
 @Named
 @Stateless
 @Path("community")
+@Produces({ MediaType.APPLICATION_JSON })
 public class CommunityEndpoint {
 
 	private static final Logger LOG = LoggerFactory.getLogger(CommunityEndpoint.class);
 	@Inject
+	CommunityMapper communityMapper;
+	@Inject
+	SeasonMapper seasonMapper;
+	@Inject
+	TeamMapper teamMapper;
+
+	@Inject
 	CommunityService communityService;
+
+	@Inject
+	TeamService teamService;
 
 	@Inject
 	SeasonService seasonService;
 
 	@GET
-	@Produces({ MediaType.APPLICATION_JSON })
-	public List<Community> getAll() {
-		return communityService.findAll();
+	public List<CommunityDto> getAll() {
+		return communityMapper.toDtos(communityService.findAll());
 	}
 
 	@GET
-	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/{id}")
-	public Community get(@PathParam("id") long id) {
-		return communityService.find(id);
+	public CommunityDto get(@PathParam("id") long id) {
+		return communityMapper.toDto(communityService.find(id));
 	}
 
 	@GET
-	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/{id}/team")
-	public List<Team> getTeams(@PathParam("id") long id) {
+	public List<TeamDto> getTeams(@PathParam("id") long id) {
 		List<Team> teams = communityService.find(id).getTeams();
-		teams.size();
-		return teams;
+		return teamMapper.toTeamDtos(teams);
 	}
 
 	@GET
-	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/{id}/season")
-	public List<Season> getSeasons(@PathParam("id") long id) {
+	public List<SeasonDto> getSeasons(@PathParam("id") long id) {
 		List<Season> seasons = communityService.find(id).getSeasons();
-		seasons.size();
-		return seasons;
+		return seasonMapper.toDtos(seasons);
 	}
 
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Community post(Community community) {
-		LOG.info("Creating Community {}", community);
-		return communityService.save(community);
+	public CommunityDto post(CommunityDto communityDto) {
+		LOG.info("Creating Community {}", communityDto);
+		Community community = communityMapper.toEntity(communityDto);
+		return communityMapper.toDto(communityService.save(community));
 	}
 
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })
-	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/{id}/addTeam")
-	public Community addTeam(@PathParam("id") long id, Team team) {
-		Community c = communityService.find(id);
+	public CommunityDto addTeam(@PathParam("id") long id, TeamDto teamDto) {
+		final Community c = communityService.find(id);
+		final Team team = teamService.find(teamDto.getId());
 		LOG.info("Adding Team {} to  Community {}", team, c);
-		return communityService.addTeam(c, team);
+		return communityMapper.toDto(communityService.addTeam(c, team));
 	}
 
 	@PUT
 	@Path("/{id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
-	@Produces({ MediaType.APPLICATION_JSON })
 	public Community put(@PathParam("id") long id, Community community) {
 		community.setId(id);
 		return communityService.merge(community);
@@ -105,13 +116,13 @@ public class CommunityEndpoint {
 	}
 
 	@POST
-	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/{id}/season")
 	public Season createSeasonForCommunity(@PathParam("id") long communityId,
+	public SeasonDto createSeasonForCommunity(@PathParam("id") long communityId,
 			@QueryParam("seasonName") String seasonName) {
 		Community c = communityService.find(communityId);
 		if (c != null) {
-			return seasonService.createSeasonForCommunity(seasonName, c);
+			return seasonMapper.toDto(seasonService.createSeasonForCommunity(seasonName, c));
 		} else {
 			return null;
 		}

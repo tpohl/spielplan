@@ -10,6 +10,8 @@ import com.thorstiland.spielplan.model.Community;
 @Mapper(uses = {TeamMapper.class, SeasonMapper.class})
 public interface CommunityMapper {
 	public CommunityDto toDto(Community entity);
+	
+	public Community toEntity(CommunityDto dto);
 
 	List<CommunityDto> toDtos(List<Community> entities);
 }

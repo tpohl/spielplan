@@ -10,6 +10,8 @@ import com.thorstiland.spielplan.model.Team;
 @Mapper
 public interface TeamMapper {
 	public TeamDto toTeam(Team team);
-	
+
 	List<TeamDto> toTeamDtos(List<Team> teams);
+
+	public Team toEntity(TeamDto team);
 }

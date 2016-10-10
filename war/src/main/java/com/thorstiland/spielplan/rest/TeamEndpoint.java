@@ -26,19 +26,18 @@ import io.swagger.annotations.Api;
 @Named
 @Stateless
 @Path("team")
+@Produces({ MediaType.APPLICATION_JSON })
 public class TeamEndpoint {
 	@Inject
 	TeamService teamService;
 	@Inject TeamMapper teamMapper;
 	
 	@GET
-    @Produces({ MediaType.APPLICATION_JSON }) 
     public List<TeamDto> getAll() {
         return teamMapper.toTeamDtos(teamService.findAll());
     }
 	
 	@GET
-    @Produces({ MediaType.APPLICATION_JSON })
     @Path("/{id}")
     public TeamDto get(@PathParam("id") long id) {
         return teamMapper.toTeam(teamService.find(id));
@@ -46,18 +45,19 @@ public class TeamEndpoint {
 	
 	@POST
     @Consumes({ MediaType.APPLICATION_JSON })
-	@Produces({ MediaType.APPLICATION_JSON })
-    public Team post(Team Team) {
-        return teamService.save(Team);
+    public Team post(TeamDto teamDto) {
+		Team team = teamMapper.toEntity(teamDto);
+        return teamService.save(team);
     }
 	
 	@PUT
 	@Path("/{id}")
     @Consumes({ MediaType.APPLICATION_JSON })
-	@Produces({ MediaType.APPLICATION_JSON })
-    public Team put(@PathParam("id") long id,Team Team) {
-		Team.setId(id);
-        return teamService.merge(Team);
+    public Team put(@PathParam("id") long id,TeamDto teamDto) {
+		Team team = teamService.find(id);
+		team.setName(teamDto.getName());
+		team.setPlayerName(teamDto.getPlayerName());
+        return teamService.merge(team);
     }
 	
 	@DELETE
