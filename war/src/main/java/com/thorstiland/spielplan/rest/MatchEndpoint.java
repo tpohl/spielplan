@@ -17,6 +17,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.thorstiland.spielplan.dto.MatchDto;
+import com.thorstiland.spielplan.dto.ScoreDto;
 import com.thorstiland.spielplan.mapper.MatchMapper;
 import com.thorstiland.spielplan.model.Match;
 import com.thorstiland.spielplan.service.MatchService;
@@ -27,6 +28,7 @@ import io.swagger.annotations.Api;
 @Named
 @Stateless
 @Path("match")
+@Produces({ MediaType.APPLICATION_JSON })
 public class MatchEndpoint {
 	@Inject
 	MatchService matchService;
@@ -71,11 +73,11 @@ public class MatchEndpoint {
 
 	@POST
 	@Path("/score/{id}")
-	public void saveScore(@PathParam("id") long id, @QueryParam("home") int homeScore,
-			@QueryParam("away") int awayScore) {
+	@Consumes({ MediaType.APPLICATION_JSON })
+	public void saveScore(@PathParam("id") long id, ScoreDto score) {
 		Match match = matchService.find(id);
-		match.setScoreHome(homeScore);
-		match.setScoreAway(awayScore);
+		match.setScoreHome(score.getHome());
+		match.setScoreAway(score.getAway());
 		matchService.merge(match);
 	}
 }
