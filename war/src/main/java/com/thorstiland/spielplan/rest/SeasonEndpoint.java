@@ -1,5 +1,6 @@
 package com.thorstiland.spielplan.rest;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -20,11 +21,15 @@ import org.slf4j.LoggerFactory;
 
 import com.thorstiland.spielplan.dto.GameDto;
 import com.thorstiland.spielplan.dto.SeasonDto;
+import com.thorstiland.spielplan.dto.StandingsDto;
+import com.thorstiland.spielplan.dto.TeamDto;
 import com.thorstiland.spielplan.mapper.GameMapper;
 import com.thorstiland.spielplan.mapper.SeasonMapper;
 import com.thorstiland.spielplan.model.Game;
 import com.thorstiland.spielplan.model.Season;
+import com.thorstiland.spielplan.model.Team;
 import com.thorstiland.spielplan.service.SeasonService;
+import com.thorstiland.spielplan.service.TeamService;
 
 import io.swagger.annotations.Api;
 
@@ -32,32 +37,33 @@ import io.swagger.annotations.Api;
 @Named
 @Stateless
 @Path("season")
+@Produces({ MediaType.APPLICATION_JSON })
 public class SeasonEndpoint {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(SeasonEndpoint.class);
 	@Inject
 	SeasonService seasonService;
 
 	@Inject
+	TeamService teamService;
+
+	@Inject
 	SeasonMapper seasonMapper;
 	@Inject
 	GameMapper gameMapper;
-	
+
 	@GET
-	@Produces({ MediaType.APPLICATION_JSON })
 	public List<SeasonDto> getAll() {
 		return seasonMapper.toDtos(seasonService.findAll());
 	}
 
 	@GET
-	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/{id}")
 	public SeasonDto get(@PathParam("id") long id) {
 		return seasonMapper.toDto(seasonService.find(id));
 	}
 
 	@GET
-	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/{id}/game")
 	public List<GameDto> getGames(@PathParam("id") long id) {
 		final Season season = seasonService.find(id);
@@ -71,20 +77,44 @@ public class SeasonEndpoint {
 
 	}
 
-	@POST
-	@Consumes({ MediaType.APPLICATION_JSON })
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Season post(Season season) {
-		LOG.info("Creating Season {}", season);
-		return seasonService.save(season);
+	@GET
+	@Path("/{id}/standings")
+	public StandingsDto getStandings(@PathParam("id") long id) {
+		// TODO implement me.
+		return null;
 	}
 
 	@PUT
 	@Path("/{id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Season put(@PathParam("id") long id, Season season) {
-		season.setId(id);
+	public Season put(@PathParam("id") long id, SeasonDto seasonDto) {
+		Season season = seasonService.find(id);
+		season.setName(seasonDto.getName()); // TODO move this to a mapper.
+		return seasonService.merge(season);
+	}
+
+	@POST
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Path("/{id}/add-team")
+	public Season addTeam(@PathParam("id") long id, TeamDto teamDto) {
+		Season season = seasonService.find(id);
+		Team team = teamService.find(teamDto.getId());
+		season.getTeams().add(team);
+		return seasonService.merge(season);
+	}
+
+	@DELETE
+	@Path("/{id}/teams/{teamId}")
+	public Season removeTeam(@PathParam("id") long id, @PathParam("teamId") long teamId) {
+		Season season = seasonService.find(id);
+		for (Iterator<Team> iterator = season.getTeams().iterator(); iterator.hasNext();) {
+			Team team = iterator.next();
+			if (team.getId() == teamId) {
+				iterator.remove();
+				break;
+			}
+
+		}
 		return seasonService.merge(season);
 	}
 

@@ -10,20 +10,23 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
 import lombok.Data;
+
 @Entity
 @Data
 public class Community {
-	@Id @GeneratedValue long id;
-	
+	@Id
+	@GeneratedValue
+	long id;
+
 	private String name;
-	
-	@ManyToMany(targetEntity = Team.class, fetch=FetchType.EAGER)
-    @JoinTable(name="community2team")
+
+	@ManyToMany(targetEntity = Team.class, fetch = FetchType.EAGER)
+	@JoinTable(name = "community2team")
 	private List<Team> teams;
 
-	@OneToMany(mappedBy = "community", cascade=CascadeType.REMOVE)
+	@OneToMany(mappedBy = "community", cascade = CascadeType.REMOVE)
 	private List<Season> seasons;
-	
-	
+
 }
