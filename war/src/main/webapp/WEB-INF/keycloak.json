@@ -1,0 +1,11 @@
+{
+  "realm": "Spielplan",
+  "realm-public-key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjKmYffzvtBxj+XfKZMXMh9k1grw50OpRf4IRqpa6OrKAmMhF3c7vxNnFKKyp4DG8Zk6J+6QQyi6eBRTUMkLohD1o0np0BnLFSx2uAkvKFQfWBUSn4VxjTsl0jb7E991V0YGWJJOUrajcQ2/iUxI+gSO4jb94bBBaPICWNNuSe0aKZWDcIS3vHLjZzxtuFAWffQQEZmYm5W1Q7DDwK/azcbv7U7pxjHRyYuliYORQNiCYlKqDkbzlErJPXbHS5z1Rcqqq8YSOAbUfiDoEsmgvjfFQC2hPuERxU1nGsxGPG1dmwu2/YiWchnwm5syC91cwZMXtqCLWrCnuxQZ1rZ6Y4wIDAQAB",
+  "auth-server-url": "https://keycloak-pohl.rhcloud.com/auth",
+  "ssl-required": "external",
+  "resource": "spielplan-backend",
+  "credentials": {
+    "secret": "d52dcc14-3b47-4544-862a-16e6d688a5f7"
+  },
+  "use-resource-role-mappings": true
+}

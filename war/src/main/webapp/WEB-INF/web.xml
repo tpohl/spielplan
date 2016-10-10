@@ -5,6 +5,28 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	metadata-complete="false">
 
+	${enable.security.start}
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>api</web-resource-name>
+			<url-pattern>/api/*</url-pattern>
+			<url-pattern>/webjars/swagger-ui/*</url-pattern>
+
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>user</role-name>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<login-config>
+		<auth-method>KEYCLOAK</auth-method>
+		<realm-name>Spielplan</realm-name>
+	</login-config>
+	${enable.security.end}
+			<!-- <user-data-constraint> <transport-guarantee>CONFIDENTIAL</transport-guarantee> 
+			</user-data-constraint> -->
+
 	<filter>
 		<filter-name>CORS</filter-name>
 		<filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
