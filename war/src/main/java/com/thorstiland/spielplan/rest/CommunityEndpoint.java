@@ -83,6 +83,12 @@ public class CommunityEndpoint {
 		List<Season> seasons = communityService.find(id).getSeasons();
 		return seasonMapper.toDtos(seasons);
 	}
+	@GET
+	@Path("/{id}/season/current")
+	public SeasonDto getCurrentSeasons(@PathParam("id") long id) {
+		Season season = communityService.find(id).getSeasons().get(0); //TODO really implement this.
+		return seasonMapper.toDto(season);
+	}
 
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })
