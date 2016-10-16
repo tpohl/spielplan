@@ -13,7 +13,7 @@ import com.thorstiland.spielplan.model.Team;
 
 @Named
 @Stateless
-@RolesAllowed({ "admin", "user" })
+//@RolesAllowed({ "admin", "user" })
 public class SeasonService extends CrudService<Season>{
 
 	public SeasonService() {

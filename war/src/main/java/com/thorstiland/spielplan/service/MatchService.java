@@ -8,7 +8,7 @@ import com.thorstiland.spielplan.model.Match;
 
 @Named
 @Stateless
-@RolesAllowed({ "admin", "user" })
+//@RolesAllowed({ "admin", "user" })
 public class MatchService extends CrudService<Match>{
 
 	public MatchService() {

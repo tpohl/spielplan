@@ -12,7 +12,7 @@ import com.thorstiland.spielplan.model.Team;
 
 @Named
 @Stateless
-@RolesAllowed({ "admin", "user" })
+//@RolesAllowed({ "admin", "user" })
 public class CommunityService extends CrudService<Community> {
 
 	@Inject
