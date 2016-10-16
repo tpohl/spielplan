@@ -2,6 +2,8 @@ package com.thorstiland.spielplan.service;
 
 import java.util.ArrayList;
 
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -9,6 +11,8 @@ import com.thorstiland.spielplan.model.Community;
 import com.thorstiland.spielplan.model.Team;
 
 @Named
+@Stateless
+@RolesAllowed({ "admin", "user" })
 public class CommunityService extends CrudService<Community> {
 
 	@Inject
