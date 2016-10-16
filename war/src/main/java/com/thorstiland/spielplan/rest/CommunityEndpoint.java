@@ -14,13 +14,15 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.SecurityContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.thorstiland.spielplan.dto.CommunityDto;
 import com.thorstiland.spielplan.dto.CommunityBasicDto;
+import com.thorstiland.spielplan.dto.CommunityDto;
 import com.thorstiland.spielplan.dto.SeasonDto;
 import com.thorstiland.spielplan.dto.TeamDto;
 import com.thorstiland.spielplan.mapper.CommunityMapper;
@@ -34,12 +36,14 @@ import com.thorstiland.spielplan.service.SeasonService;
 import com.thorstiland.spielplan.service.TeamService;
 
 import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
 
 @Api(tags = { "masterdata", "Community" })
 @Named
 @Stateless
 @Path("community")
 @Produces({ MediaType.APPLICATION_JSON })
+@Slf4j
 public class CommunityEndpoint {
 
 	private static final Logger LOG = LoggerFactory.getLogger(CommunityEndpoint.class);
@@ -60,7 +64,9 @@ public class CommunityEndpoint {
 	SeasonService seasonService;
 
 	@GET
-	public List<CommunityDto> getAll() {
+	public List<CommunityDto> getAll(@Context SecurityContext sc) {
+		log.info("User in user-role {}",sc.isUserInRole("user"));
+		log.info("User Principal {}",sc.getUserPrincipal());
 		return communityMapper.toDtos(communityService.findAll());
 	}
 

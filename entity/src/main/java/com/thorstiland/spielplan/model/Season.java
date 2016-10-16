@@ -30,7 +30,7 @@ public class Season {
 	@JoinTable(name = "season2team")
 	private List<Team> teams;
 
-	@OneToMany(mappedBy = "season", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "season", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
 	private List<Match> matches;
 
 }

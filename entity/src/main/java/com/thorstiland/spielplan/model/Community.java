@@ -22,7 +22,7 @@ public class Community {
 
 	private String name;
 
-	@ManyToMany(targetEntity = Team.class, fetch = FetchType.EAGER)
+	@ManyToMany(targetEntity = Team.class)
 	@JoinTable(name = "community2team")
 	private List<Team> teams;
 
