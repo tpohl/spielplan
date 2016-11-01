@@ -1,5 +1,7 @@
 package com.thorstiland.spielplan.rest;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -93,9 +95,15 @@ public class SeasonEndpoint {
 		return seasonService.merge(season);
 	}
 
+	@GET
+	@Path("/{id}/team")
+	public Collection<Team> addTeam(@PathParam("id") long id) {
+		return Collections.emptyList();
+	}
+
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })
-	@Path("/{id}/add-team")
+	@Path("/{id}/team")
 	public Season addTeam(@PathParam("id") long id, TeamDto teamDto) {
 		Season season = seasonService.find(id);
 		Team team = teamService.find(teamDto.getId());
@@ -104,7 +112,7 @@ public class SeasonEndpoint {
 	}
 
 	@DELETE
-	@Path("/{id}/teams/{teamId}")
+	@Path("/{id}/team/{teamId}")
 	public Season removeTeam(@PathParam("id") long id, @PathParam("teamId") long teamId) {
 		Season season = seasonService.find(id);
 		for (Iterator<Team> iterator = season.getTeams().iterator(); iterator.hasNext();) {

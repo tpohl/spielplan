@@ -59,6 +59,13 @@ public class TeamEndpoint {
 		team.setPlayerName(teamDto.getPlayerName());
         return teamService.merge(team);
     }
+	@PUT
+	@Path("/{id}/user")
+    @Consumes({ MediaType.APPLICATION_JSON })
+    public Team setUser(@PathParam("id") long id, String userId) {
+		// TODO Implement
+		return null;
+    }
 	
 	@DELETE
 	@Path("/{id}")

@@ -25,6 +25,7 @@ import com.thorstiland.spielplan.dto.CommunityBasicDto;
 import com.thorstiland.spielplan.dto.CommunityDto;
 import com.thorstiland.spielplan.dto.SeasonDto;
 import com.thorstiland.spielplan.dto.TeamDto;
+import com.thorstiland.spielplan.dto.UserDto;
 import com.thorstiland.spielplan.mapper.CommunityMapper;
 import com.thorstiland.spielplan.mapper.SeasonMapper;
 import com.thorstiland.spielplan.mapper.TeamMapper;
@@ -67,7 +68,26 @@ public class CommunityEndpoint {
 	public List<CommunityDto> getAll(@Context SecurityContext sc) {
 		log.info("User in user-role {}",sc.isUserInRole("user"));
 		log.info("User Principal {}",sc.getUserPrincipal());
+	
 		return communityMapper.toDtos(communityService.findAll());
+	}
+
+	@GET
+	@Path("/{communityId}/user")
+	public List<UserDto> getUsers(@PathParam("communityId") long communityId) {
+		// TODO implement
+		return null;
+	}
+	@POST
+	@Path("/{communityId}/user")
+	public List<UserDto> addUser(@PathParam("communityId") long communityId, String userId) {
+		// TODO implement
+		return null;
+	}
+	@DELETE
+	@Path("/{communityId}/user/{userId}")
+	public void removeUser(@PathParam("communityId") long communityId, @PathParam("userId") String userId) {
+		// TODO implement
 	}
 
 	@GET
@@ -106,7 +126,7 @@ public class CommunityEndpoint {
 
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })
-	@Path("/{id}/addTeam")
+	@Path("/{id}/team")
 	public CommunityDto addTeam(@PathParam("id") long id, TeamDto teamDto) {
 		final Community c = communityService.find(id);
 		final Team team = teamService.find(teamDto.getId());

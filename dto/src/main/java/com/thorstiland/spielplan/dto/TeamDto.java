@@ -7,4 +7,5 @@ public class TeamDto {
 	private long id;
 	private String name;
 	private String playerName;
+	private String userId;
 }
