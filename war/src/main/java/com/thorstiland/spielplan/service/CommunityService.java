@@ -2,6 +2,7 @@ package com.thorstiland.spielplan.service;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -39,10 +40,13 @@ public class CommunityService extends CrudService<Community> {
 	}
 
 	public List<Community> getByUser(User user) {
-		List<Community> results = (List<Community>) entityManager
-				.createQuery("SELECT c FROM Community c WHERE c.teams.user=:user").setParameter("user", user)
-				.getResultList();
-		return results;
+		return Collections.emptyList();
+		//FIXME this does not work.
+//		List<Community> results = (List<Community>) entityManager
+//				.createQuery("SELECT c FROM Community c WHERE c.teams.user=:user").setParameter("user", user)
+//				.getResultList();
+//		return results;
+		
 	}
 
 	public Season findCurrentSeason(Serializable communityId) {
