@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import com.thorstiland.spielplan.dto.TeamDto;
 import com.thorstiland.spielplan.model.Team;
 
-@Mapper
+@Mapper(uses = { UserMapper.class })
 public interface TeamMapper {
 	public TeamDto toTeam(Team team);
 

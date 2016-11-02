@@ -55,7 +55,7 @@ public class SeasonEndpoint {
 	MatchMapper matchMapper;
 
 	@GET
-	public List<SeasonDto> getAll() {
+	public Collection<SeasonDto> getAll() {
 		return seasonMapper.toDtos(seasonService.findAll());
 	}
 
@@ -97,7 +97,8 @@ public class SeasonEndpoint {
 
 	@GET
 	@Path("/{id}/team")
-	public Collection<Team> addTeam(@PathParam("id") long id) {
+	public Collection<Team> getTeams(@PathParam("id") long id) {
+		// TODO implement
 		return Collections.emptyList();
 	}
 

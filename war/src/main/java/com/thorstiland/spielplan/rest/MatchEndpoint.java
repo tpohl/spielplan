@@ -48,28 +48,6 @@ public class MatchEndpoint {
 		return matchMapper.toDto(matchService.find(id));
 	}
 
-//	@POST
-//	@Consumes({ MediaType.APPLICATION_JSON })
-//	@Produces({ MediaType.APPLICATION_JSON })
-//	public Match post(Match Game) {
-//		return matchService.save(Game);
-//	}
-
-//	@PUT
-//	@Path("/{id}")
-//	@Consumes({ MediaType.APPLICATION_JSON })
-//	@Produces({ MediaType.APPLICATION_JSON })
-//	public Match put(@PathParam("id") long id, MatchDto matchDto) {
-//		Match match = matchService.find(id);
-//		// TODO merge
-//		return matchService.save(match);
-//	}
-
-//	@DELETE
-//	@Path("/{id}")
-//	public void delete(@PathParam("id") long id) {
-//		matchService.delete(id);
-//	}
 
 	@POST
 	@Path("/score/{id}")

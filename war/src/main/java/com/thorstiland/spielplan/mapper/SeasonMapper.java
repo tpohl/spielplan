@@ -1,6 +1,6 @@
 package com.thorstiland.spielplan.mapper;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.mapstruct.Mapper;
 
@@ -11,5 +11,5 @@ import com.thorstiland.spielplan.model.Season;
 public interface SeasonMapper {
 	public SeasonDto toDto(Season season);
 
-	List<SeasonDto> toDtos(List<Season> seasons);
+	Collection<SeasonDto> toDtos(Collection<Season> seasons);
 }

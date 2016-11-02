@@ -3,6 +3,7 @@ package com.thorstiland.spielplan.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import lombok.Data;
 
@@ -14,7 +15,7 @@ public class Team {
 	long id;
 
 	private String name;
-
-	private String playerName;
-
+	
+	@ManyToOne
+	private User user;
 }

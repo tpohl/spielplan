@@ -164,7 +164,17 @@
 			</properties>
 			<build>
 				<defaultGoal>wildfly:run</defaultGoal>
+				<finalName>${project.artifactId}</finalName>
 				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<version>2.3</version>
+						<configuration>
+							<failOnMissingWebXml>false</failOnMissingWebXml>
+							<warName>${project.artifactId}</warName>
+						</configuration>
+					</plugin>
 					<plugin>
 						<groupId>org.wildfly.plugins</groupId>
 						<artifactId>wildfly-maven-plugin</artifactId>

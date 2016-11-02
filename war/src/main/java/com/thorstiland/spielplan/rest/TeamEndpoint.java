@@ -19,6 +19,7 @@ import com.thorstiland.spielplan.dto.TeamDto;
 import com.thorstiland.spielplan.mapper.TeamMapper;
 import com.thorstiland.spielplan.model.Team;
 import com.thorstiland.spielplan.service.TeamService;
+import com.thorstiland.spielplan.service.UserService;
 
 import io.swagger.annotations.Api;
 
@@ -30,6 +31,8 @@ import io.swagger.annotations.Api;
 public class TeamEndpoint {
 	@Inject
 	TeamService teamService;
+	@Inject
+	UserService userService;;
 	@Inject TeamMapper teamMapper;
 	
 	@GET
@@ -56,7 +59,8 @@ public class TeamEndpoint {
     public Team put(@PathParam("id") long id,TeamDto teamDto) {
 		Team team = teamService.find(id);
 		team.setName(teamDto.getName());
-		team.setPlayerName(teamDto.getPlayerName());
+		team.setUser(userService.find(teamDto.getUser().getId()));
+		
         return teamService.merge(team);
     }
 	@PUT

@@ -1,5 +1,6 @@
 package com.thorstiland.spielplan.rest;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -74,13 +75,13 @@ public class CommunityEndpoint {
 
 	@GET
 	@Path("/{communityId}/user")
-	public List<UserDto> getUsers(@PathParam("communityId") long communityId) {
+	public Collection<UserDto> getUsers(@PathParam("communityId") long communityId) {
 		// TODO implement
 		return null;
 	}
 	@POST
 	@Path("/{communityId}/user")
-	public List<UserDto> addUser(@PathParam("communityId") long communityId, String userId) {
+	public Collection<UserDto> addUser(@PathParam("communityId") long communityId, String userId) {
 		// TODO implement
 		return null;
 	}
@@ -98,21 +99,21 @@ public class CommunityEndpoint {
 
 	@GET
 	@Path("/{id}/team")
-	public List<TeamDto> getTeams(@PathParam("id") long id) {
+	public Collection<TeamDto> getTeams(@PathParam("id") long id) {
 		List<Team> teams = communityService.find(id).getTeams();
 		return teamMapper.toTeamDtos(teams);
 	}
 
 	@GET
 	@Path("/{id}/season")
-	public List<SeasonDto> getSeasons(@PathParam("id") long id) {
+	public Collection<SeasonDto> getSeasons(@PathParam("id") long id) {
 		List<Season> seasons = communityService.find(id).getSeasons();
 		return seasonMapper.toDtos(seasons);
 	}
 	@GET
 	@Path("/{id}/season/current")
 	public SeasonDto getCurrentSeasons(@PathParam("id") long id) {
-		Season season = communityService.find(id).getSeasons().get(0); //TODO really implement this.
+		Season season = communityService.findCurrentSeason(id);
 		return seasonMapper.toDto(season);
 	}
 
