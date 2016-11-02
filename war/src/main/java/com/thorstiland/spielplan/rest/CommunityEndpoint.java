@@ -74,24 +74,6 @@ public class CommunityEndpoint {
 	}
 
 	@GET
-	@Path("/{communityId}/user")
-	public Collection<UserDto> getUsers(@PathParam("communityId") long communityId) {
-		// TODO implement
-		return null;
-	}
-	@POST
-	@Path("/{communityId}/user")
-	public Collection<UserDto> addUser(@PathParam("communityId") long communityId, String userId) {
-		// TODO implement
-		return null;
-	}
-	@DELETE
-	@Path("/{communityId}/user/{userId}")
-	public void removeUser(@PathParam("communityId") long communityId, @PathParam("userId") String userId) {
-		// TODO implement
-	}
-
-	@GET
 	@Path("/{id}")
 	public CommunityDto get(@PathParam("id") long id) {
 		return communityMapper.toDto(communityService.find(id));
