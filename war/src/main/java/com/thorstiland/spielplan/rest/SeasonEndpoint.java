@@ -27,6 +27,7 @@ import com.thorstiland.spielplan.dto.StandingsDto;
 import com.thorstiland.spielplan.dto.TeamDto;
 import com.thorstiland.spielplan.mapper.MatchMapper;
 import com.thorstiland.spielplan.mapper.SeasonMapper;
+import com.thorstiland.spielplan.mapper.TeamMapper;
 import com.thorstiland.spielplan.model.Match;
 import com.thorstiland.spielplan.model.Season;
 import com.thorstiland.spielplan.model.Team;
@@ -53,6 +54,8 @@ public class SeasonEndpoint {
 	SeasonMapper seasonMapper;
 	@Inject
 	MatchMapper matchMapper;
+	@Inject
+	TeamMapper teamMapper;
 
 	@GET
 	public Collection<SeasonDto> getAll() {
@@ -81,9 +84,8 @@ public class SeasonEndpoint {
 
 	@GET
 	@Path("/{id}/standings")
-	public StandingsDto getStandings(@PathParam("id") long id) {
-		// TODO implement me.
-		return null;
+	public StandingsDto getStandings(@PathParam("id") long id) {	
+		return seasonService.getStandings(id);
 	}
 
 	@PUT
@@ -97,9 +99,9 @@ public class SeasonEndpoint {
 
 	@GET
 	@Path("/{id}/team")
-	public Collection<Team> getTeams(@PathParam("id") long id) {
-		// TODO implement
-		return Collections.emptyList();
+	public Collection<TeamDto> getTeams(@PathParam("id") long id) {
+		Season season = seasonService.find(id);
+		return teamMapper.toTeamDtos(season.getTeams());
 	}
 
 	@POST

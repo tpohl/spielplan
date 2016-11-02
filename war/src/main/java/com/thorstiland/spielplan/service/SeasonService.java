@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Named;
+import javax.ws.rs.PathParam;
 
+import com.thorstiland.spielplan.dto.StandingsDto;
 import com.thorstiland.spielplan.model.Community;
 import com.thorstiland.spielplan.model.Match;
 import com.thorstiland.spielplan.model.Season;
@@ -31,6 +33,7 @@ public class SeasonService extends CrudService<Season>{
 	}
 	
 	public Season createMatches(final Season season){
+		// TODO make this better.
 		for (final Team homeTeam : season.getTeams()) {
 			for (final Team awayTeam : season.getTeams()) {
 				if (homeTeam.getId()!=awayTeam.getId()){
@@ -43,5 +46,10 @@ public class SeasonService extends CrudService<Season>{
 			}
 		}
 		return this.save(season);
+	}
+	
+	public StandingsDto getStandings( long id){
+		// TODO implement me.
+		return null;
 	}
 }

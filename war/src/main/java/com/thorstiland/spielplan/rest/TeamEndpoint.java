@@ -48,27 +48,28 @@ public class TeamEndpoint {
 	
 	@POST
     @Consumes({ MediaType.APPLICATION_JSON })
-    public Team post(TeamDto teamDto) {
+    public TeamDto post(TeamDto teamDto) {
 		Team team = teamMapper.toEntity(teamDto);
-        return teamService.save(team);
+        return teamMapper.toTeam(teamService.save(team));
     }
 	
 	@PUT
 	@Path("/{id}")
     @Consumes({ MediaType.APPLICATION_JSON })
-    public Team put(@PathParam("id") long id,TeamDto teamDto) {
+    public TeamDto put(@PathParam("id") long id,TeamDto teamDto) {
 		Team team = teamService.find(id);
 		team.setName(teamDto.getName());
 		team.setUser(userService.find(teamDto.getUser().getId()));
 		
-        return teamService.merge(team);
+        return teamMapper.toTeam(teamService.merge(team));
     }
 	@PUT
 	@Path("/{id}/user")
     @Consumes({ MediaType.APPLICATION_JSON })
-    public Team setUser(@PathParam("id") long id, String userId) {
-		// TODO Implement
-		return null;
+    public TeamDto setUser(@PathParam("id") long id, String userId) {
+		Team team = teamService.find(id);
+		team.setUser(userService.find(userId));
+		return teamMapper.toTeam(teamService.merge(team));
     }
 	
 	@DELETE
